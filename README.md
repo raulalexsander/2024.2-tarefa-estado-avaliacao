@@ -77,37 +77,62 @@ por fim, considere a tabela abaixo:
 
 continue o preenchimento da tabela abaixo, considerando que o sistema operacional tem 1 _tick_ como valor da fatia de tempo (_quantum_ ou _time slice_).
 
-| tick | SO    | t1         | t2         | t3         | Fila de pr |
-| ---- | ----- | ---------- | ---------- | ---------- | ---------- |
-| 01   | ex    | --         | --         | --         | --         |
-| 02   | ex    | no         | --         | --         | --         |
-| 03   | ex    | pr         | no         | --         | t1         |
-| 04   | ex    | --         | pr         | no         | t1, t2     |
-| 05   | ex t1 | --         | --         | pr         | t2, t3     |
-| 06   | --    | ex linha 1 | --         | --         | t2, t3     |
-| 07   | ex t2 | su 1       | --         | --         | t2, t3     |
-| 08   | --    | su 2       | ex linha 1 | --         | t3         |
-| 09   | ex t3 | pr         | su 1       | --         | t1         |
-| 10   | --    | --         | su 2       | ex linha 1 | t1         |
-| 11   | ex t1 | ex linha 2 | su 1       | pr         | t2         |
-| 12   | --    | su 1       | ex linha 1 | --         | t2, t3     |
+| tick | SO    | t1         | t2           | t3         | Fila de pr |
+| ---- | ----- | ---------- | ----------   | ---------- | ---------- |
+| 01   | ex    | --         | --           | --         | --         |
+| 02   | ex    | no         | --           | --         | --         |
+| 03   | ex    | pr         | no           | --         | t1         |
+| 04   | ex    | --         | pr           | no         | t1, t2     |
+| 05   | ex t1 | --         | --           | pr         | t2, t3     |
+| 06   | --    | ex linha 1 | --           | --         | t2, t3     |
+| 07   | ex t2 | su 1       | --           | --         | t2, t3     |
+| 08   | --    | su 2       | ex linha 1   | --         | t3         |
+| 09   | ex t3 | pr         | su 1         | --         | t1         |
+| 10   | --    | --         | su 2         | ex linha 1 | t1         |
+| 11   | ex t1 | ex linha 2 | su 2         | pr         | t2         |
+| 12   | --    | su 3       | su 2         | ex linha 1 | t2         |
+| 13   | ex t2 | su 3       | su 1 linha 2 | --         | t3         |
+| 14   | --    | su 3       | su 2 linha 3 | ex linha 1 | t1         |
+| 15   | ex t3 | pr         | su 3         | --         | t1         |
+| 16   | --    | ex linha 4 | su 3         | --         | t2         |
+| 17   | ex t1 | su 4       | ex linha 3   | --         | t2, t3     |
+| 18   | --    | su 4       | su 1 linha 4 | ex linha 1 | t3         |
+| 19   | ex t2 | su 4       | su 2 linha 5 | --         | t3         |
+| 20   | --    | su 4       | su 3 linha 6 | ex linha 1 | --         |
+| 21   | ex t3 | pr         | su 4         | --         | t1         |
+| 22   | --    | ex linha 5 | su 4         | --         | t2         |
+| 23   | ex t1 | fi         | ex linha 7   | --         | t2         |
+| 24   | --    | fi         | su 1 linha 8 | ex linha 1 | t3         |
+| 25   | ex t3 | fi         | su 2 linha 9 | --         | --         |
+
 
 ## Tarefa 2 - fatia tempo com valor 10 ticks
 
 continue o preenchimento da tabela abaixo, considerando que o sistema operacional tem 10 _ticks_ como valor da fatia de tempo (_quantum_ ou _time slice_).
 
-| tick | SO    | t1         | t2         | t3         | Fila de pr |
-| ---- | ----- | ---------- | ---------- | ---------- | ---------- |
-| 01   | ex    | --         | --         | --         | --         |
-| 02   | ex    | no         | --         | --         | --         |
-| 03   | ex    | pr         | no         | --         | t1         |
-| 04   | ex    | --         | pr         | no         | t1, t2     |
-| 05   | ex t1 | --         | --         | pr         | t2, t3     |
-| 06   | --    | ex linha 1 | --         | --         | t2, t3     |
-| 07   | ex t2 | su 1       | --         | --         | t2, t3     |
-| 08   | --    | su 2       | ex linha 1 | --         | t3         |
-| 09   | ex t3 | pr         | su 1       | --         | t1         |
-| 10   | --    | --         | su 2       | ex linha 1 | t1         |
-| 11   | ex t1 | ex linha 2 | su 1       | pr         | t2         |
-| 12   | --    | su p1      | ex linha 1 | --         | t2, t3     |
-| 13   | ex t2 | pr         | ex linha 1 | --         | t3         |
+| tick | SO    | t1	        | t2	          | t3        |	Fila de pr |
+| ---- | ----- | ---------- | ------------- | --------- | ---------- |
+| 01	 | ex	   | --         |	--	          | --	      | --         |
+| 02	 | ex	   | no	        | --	          | --	      | --         |
+| 03	 | ex	   | pr         |	no	          | --	      | t1         |
+| 04	 | ex	   |--	        |pr	            | no	      | t1, t2     |
+| 05	 | ex    |t1	        | --	          | pr	      | t2, t3     |
+| 06	 | --	   |ex          | ex linha 1    |	--        |	t2, t3     |
+| 07   | --    |	su 1      |	--	          |--	        |t2, t3      |
+| 08   | ex t2 |	su 2      |	ex linha 1    |	--        |	t3         |
+| 09   | --    |	--	      |su 2	          |ex linha 2 |	t3         |
+| 10   | --    |	--        |	su	          | ex linha 3|	t3         |
+| 11   | ex t3 |	pr        |	--	          |--         |	t1         |
+| 12   | --    |	--        |	--            |	ex linha 3|	t1         |
+| 13	 | ex t1 |	--        |	--	          |--         |t2, t3      |
+| 14   | --    | ex linha 2 |	--	          |--         |	t2, t3     |
+| 15   | ex t2 |--          |	--            |	--        |	t3         |
+| 16	 | --    |	--        |	ex linha 2    |	--        |	t3         |
+| 17	 | ex t3 |	--        |	--            |	ex linha 3|	--         |
+| 18   | --    |	fi	      |--             |	--        |	t2, t3     |
+| 19	 | ex t2 |	--        |	su	          |--	        |   t3       |
+| 20	 | --	   |--          |	su	          |ex linha 4	|--          |
+| 21	 | ex t3 |	--	      |pr	            |--	        |t2          |
+| 22	 | --	   | --	        |ex linha 5	    |--         |	--         |
+| 23   | ex t2 | --	        |fi             |	--        |	--         |
+| 24	 | ex t3 | --	        |--             |	fi        |	--         |
